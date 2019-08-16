@@ -4,27 +4,32 @@
   {{on "touchstart" this.chooseOption}}
   {{on "mousedown" this.chooseOption}}
   ...attributes>
-  {{#each @select.selected as |opt idx|}}
-    <li class="ember-power-select-multiple-option {{if opt.disabled "ember-power-select-multiple-option--disabled"}}">
-      {{#unless @select.disabled }}
-        <span role="button"
-          aria-label="remove element"
-          class="ember-power-select-multiple-remove-btn"
-          data-selected-index={{idx}}>
-          &times;
-        </span>
-      {{/unless}}
-      {{#if selectedItemComponent}}
-        {{component selectedItemComponent extra=(readonly extra) option=(readonly opt) select=(readonly select)}}
-      {{else}}
-        {{yield opt select}}
-      {{/if}}
+  {{#if (and @selectedSummarized (gt @select.selected.length 1 ))}}
+    <li class="ember-power-select-multiple-option select-summarized">
+      {{@select.selected.length}} items selected
     </li>
   {{else}}
-    {{#if (and placeholder (not searchEnabled))}}
-      <span class="ember-power-select-placeholder">{{placeholder}}</span>
-    {{/if}}
-  {{/each}}
+    {{#each @select.selected as |opt idx|}}
+      <li class="ember-power-select-multiple-option {{if opt.disabled "ember-power-select-multiple-option--disabled"}}">
+        {{#unless @select.disabled }}
+          <span role="button"
+            aria-label="remove element"
+            class="ember-power-select-multiple-remove-btn"
+            data-selected-index={{idx}}>
+            &times;
+          </span>
+        {{/unless}}
+        {{#if selectedItemComponent}}
+          {{component selectedItemComponent extra=(readonly extra) option=(readonly opt) select=(readonly select)}}
+        {{else}}
+          {{yield opt select}}
+        {{/if}}
+      </li>
+      {{#if (and placeholder (not searchEnabled))}}
+        <span class="ember-power-select-placeholder">{{placeholder}}</span>
+      {{/if}}
+    {{/each}}
+  {{/if}}
   {{#if @searchEnabled}}
     <input
       type="search"

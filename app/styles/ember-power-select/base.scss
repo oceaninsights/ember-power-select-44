@@ -121,6 +121,11 @@
   float: left;
   margin: 2px 0 2px 3px;
 }
+.select-summarized{
+  border: inherit !important;
+  background-color: inherit !important;
+}
+
 .ember-power-select-multiple-remove-btn {
   cursor: pointer;
   &:not(:hover) { opacity: 0.5; }
