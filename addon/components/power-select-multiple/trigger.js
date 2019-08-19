@@ -9,13 +9,17 @@ import { assert } from '@ember/debug';
 import { isBlank } from '@ember/utils';
 import { htmlSafe } from '@ember/string';
 import templateLayout from '../../templates/components/power-select-multiple/trigger';
+import jQuery from 'jquery';
 
 const ua = window && window.navigator ? window.navigator.userAgent : '';
 const isIE = ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1;
 
-export default @tagName('') @layout(templateLayout) class Trigger extends Component {
+export default @tagName('multiselect') @layout(templateLayout) class Trigger extends Component {
   @service textMeasurer
   _lastIsOpen = false
+  _parentWidth = 0
+  selectedOverflow = false
+  maxSelectedUntilOverflow = null
 
   // CPs
   @computed('select.{searchText.length,selected.length}')
@@ -47,6 +51,15 @@ export default @tagName('') @layout(templateLayout) class Trigger extends Compon
     if (oldSelect.isOpen && !this.select.isOpen) {
       scheduleOnce('actions', null, this.select.actions.search, '');
     }
+  }
+
+  didUpdateAttrs() {
+    const isOverflow = this.checkOverflow()
+    this.set('selectedOverflow', isOverflow)
+  }
+
+  didInsertElement() {
+    this.set('_parentWidth', this.element.querySelector('ul').clientWidth);
   }
 
   // Actions
@@ -107,5 +120,33 @@ export default @tagName('') @layout(templateLayout) class Trigger extends Compon
     } else {
       return get(list, index);
     }
+  }
+
+  checkOverflow()
+  {
+    // user deselected at least one item
+    if(this.select.selected && this.select.selected.length < this.maxSelectedUntilOverflow){
+      this.set('maxSelectedUntilOverflow', null)
+      return false
+    }
+
+    // overflow is set already
+    if(this.element.querySelector('.select-summarized')){
+      return true
+    }
+
+    let childrenWidth = 0;
+    let children = this.element.querySelector('ul').children;
+    for(let i=0; i< children.length; i++){
+      childrenWidth += children[i].offsetWidth;
+    }
+
+    const isOverflow = childrenWidth > this._parentWidth;
+
+    if(isOverflow && !this.maxSelectedUntilOverflow){
+      this.set('maxSelectedUntilOverflow', this.select.selected.length)
+    }
+
+    return isOverflow;
   }
 }
