@@ -9,7 +9,6 @@ import { assert } from '@ember/debug';
 import { isBlank } from '@ember/utils';
 import { htmlSafe } from '@ember/string';
 import templateLayout from '../../templates/components/power-select-multiple/trigger';
-import jQuery from 'jquery';
 
 const ua = window && window.navigator ? window.navigator.userAgent : '';
 const isIE = ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1;
@@ -17,8 +16,8 @@ const isIE = ua.indexOf('MSIE ') > -1 || ua.indexOf('Trident/') > -1;
 export default @tagName('multiselect') @layout(templateLayout) class Trigger extends Component {
   @service textMeasurer
   _lastIsOpen = false
+  summarize = false
   _parentWidth = 0
-  selectedOverflow = false
   maxSelectedUntilOverflow = null
 
   // CPs
@@ -54,8 +53,18 @@ export default @tagName('multiselect') @layout(templateLayout) class Trigger ext
   }
 
   didUpdateAttrs() {
-    const isOverflow = this.checkOverflow()
-    this.set('selectedOverflow', isOverflow)
+    if(this.dynamicOverflow){
+      if(this.select.selected && this.selectedSummarized){
+        const isOverflow = this.checkOverflow()
+        this.set('summarize', isOverflow)
+      }
+    }else{
+      if(this.select.selected && this.select.selected.length > 1){
+        this.set('summarize', true)
+      }else{
+        this.set('summarize', false)
+      }
+    }
   }
 
   didInsertElement() {
@@ -138,7 +147,8 @@ export default @tagName('multiselect') @layout(templateLayout) class Trigger ext
     let childrenWidth = 0;
     let children = this.element.querySelector('ul').children;
     for(let i=0; i< children.length; i++){
-      childrenWidth += children[i].offsetWidth;
+      const child = children[i]
+      childrenWidth += child.offsetWidth;
     }
 
     const isOverflow = childrenWidth > this._parentWidth;

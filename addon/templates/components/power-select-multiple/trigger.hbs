@@ -4,7 +4,7 @@
   {{on "touchstart" this.chooseOption}}
   {{on "mousedown" this.chooseOption}}
   ...attributes>
-  {{#if (and @selectedSummarized selectedOverflow)}}
+  {{#if (and @selectedSummarized summarize)}}
     <li class="ember-power-select-multiple-option select-summarized">
       {{@select.selected.length}} items selected
     </li>
