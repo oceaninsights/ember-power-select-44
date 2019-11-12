@@ -7,6 +7,9 @@
   {{#if (and @selectedSummarized summarize)}}
     <li class="ember-power-select-multiple-option select-summarized">
       {{@select.selected.length}} items selected
+      {{#if (and @allowClear (not @select.disabled))}}
+        <span class="ember-power-select-clear-btn" {{on "mousedown" this.clear}} {{on "touchstart" this.clear}}>&times;</span>
+      {{/if}}
     </li>
   {{else}}
     {{#each @select.selected as |opt idx|}}
@@ -30,27 +33,6 @@
         <span class="ember-power-select-placeholder">{{placeholder}}</span>
       {{/if}}
     {{/each}}
-  {{/if}}
-  {{#if @searchEnabled}}
-    <input
-      type="search"
-      class="ember-power-select-trigger-multiple-input"
-      autocomplete="off"
-      autocorrect="off"
-      autocapitalize="off"
-      spellcheck="false"
-      id="ember-power-select-trigger-multiple-input-{{@select.uniqueId}}"
-      value={{@select.searchText}}
-      aria-controls={{@listboxId}}
-      style={{this.triggerMultipleInputStyle}}
-      placeholder={{this.maybePlaceholder}}
-      disabled={{@select.disabled}}
-      tabindex={{@tabindex}}
-      {{on "focus" @onFocus}}
-      {{on "blur" @onBlur}}
-      {{on "input" this.handleInput}}
-      {{on "keydown" this.handleKeydown}}
-      {{did-insert this.storeInputStyles}}>
   {{/if}}
 </ul>
 <span class="ember-power-select-status-icon"></span>

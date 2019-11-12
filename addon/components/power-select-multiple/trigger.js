@@ -123,6 +123,15 @@ export default @tagName('multiselect') @layout(templateLayout) class Trigger ext
     }
   }
 
+  @action
+  clear(e) {
+    e.stopPropagation();
+    this.select.actions.select(null);
+    if (e.type === 'touchstart') {
+      return false;
+    }
+  }
+
   selectedObject(list, index) {
     if (list.objectAt) {
       return list.objectAt(index);

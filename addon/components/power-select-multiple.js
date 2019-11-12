@@ -3,10 +3,11 @@ import Component from '@ember/component';
 import { computed, action } from '@ember/object';
 import { isEqual } from '@ember/utils';
 import templateLayout from '../templates/components/power-select-multiple';
+import fallbackIfUndefined from '../utils/computed-fallback-if-undefined';
 
 export default @tagName('') @layout(templateLayout) class PowerSelectMultiple extends Component {
+  @fallbackIfUndefined('power-select/before-options') beforeOptionsComponent
   triggerComponent = this.triggerComponent === undefined &&  'power-select-multiple/trigger'
-  beforeOptionsComponent = this.beforeOptionsComponent === undefined && null
 
   // CPs
   @computed('triggerClass')
