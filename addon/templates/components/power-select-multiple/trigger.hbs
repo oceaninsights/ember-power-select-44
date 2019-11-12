@@ -1,3 +1,5 @@
+
+<span class="ember-power-select-placeholder">{{maybePlaceholder}}</span>
 <ul
   id="ember-power-select-multiple-options-{{@select.uniqueId}}"
   class="ember-power-select-multiple-options"
@@ -28,10 +30,6 @@
           </span>
         {{/unless}}
       </li>
-    {{else}}
-      {{#if (and placeholder (not searchEnabled))}}
-        <span class="ember-power-select-placeholder">{{placeholder}}</span>
-      {{/if}}
     {{/each}}
   {{/if}}
 </ul>
