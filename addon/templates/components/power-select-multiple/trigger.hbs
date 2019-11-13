@@ -7,12 +7,21 @@
   {{on "mousedown" this.chooseOption}}
   ...attributes>
   {{#if (and @selectedSummarized summarize)}}
+    {{#if (not @customSummarizedTitle)}}
     <li class="ember-power-select-multiple-option select-summarized">
       {{@select.selected.length}} items selected
       {{#if (and @allowClear (not @select.disabled))}}
         <span class="ember-power-select-clear-btn" {{on "mousedown" this.clear}} {{on "touchstart" this.clear}}>&times;</span>
       {{/if}}
     </li>
+    {{else}}
+    <li class="ember-power-select-multiple-option select-summarized">
+      {{@customSummarizedTitle}}
+      {{#if (and @allowClear (not @select.disabled))}}
+        <span class="ember-power-select-clear-btn" {{on "mousedown" this.clear}} {{on "touchstart" this.clear}}>&times;</span>
+      {{/if}}
+    </li>
+    {{/if}}
   {{else}}
     {{#each @select.selected as |opt idx|}}
       <li class="ember-power-select-multiple-option {{if opt.disabled "ember-power-select-multiple-option--disabled"}}">
