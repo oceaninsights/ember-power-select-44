@@ -285,3 +285,14 @@
     .ember-power-select-group-name { padding-right: $ember-power-select-option-padding; }
   }
 }
+
+.ember-power-select-submit-btn {
+  background: #28a745;
+  color:$ember-power-select-highlighted-color;
+  cursor: pointer;
+  width: fit-content;
+  padding: 0 0.5rem;
+  margin:4px 5px;
+  border-radius: 4px;
+  font-size: 12px;
+}

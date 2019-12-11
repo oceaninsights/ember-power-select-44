@@ -214,6 +214,15 @@ export default @tagName('') @layout(templateLayout) class PowerSelect extends Co
   }
 
   @action
+  handleSubmit(e) {
+    if (e) {
+      this.set('openingEvent', null);
+    }
+    this.publicAPI.actions.close(e);
+    return false;
+  }
+
+  @action
   handleInput(e) {
     let term = e.target.value;
     let correctedTerm;
