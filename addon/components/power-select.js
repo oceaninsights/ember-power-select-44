@@ -215,13 +215,22 @@ export default @tagName('') @layout(templateLayout) class PowerSelect extends Co
 
   @action
   handleSubmit(e) {
+    this.onSubmit();
+    this.closeSubmitDropdown(e)
+  }
+
+  @action
+  handleCancel(e) {
+    this.closeSubmitDropdown(e)
+  }
+
+  closeSubmitDropdown(e) {
     if (e) {
       this.set('openingEvent', null);
     }
     this.publicAPI.actions.close(e);
     return false;
   }
-
   @action
   handleInput(e) {
     let term = e.target.value;

@@ -286,13 +286,29 @@
   }
 }
 
+.ember-power-select-submit-container{
+  padding: 4px;
+  display: flex;
+  text-align: center;
+}
+
 .ember-power-select-submit-btn {
   background: #28a745;
   color:$ember-power-select-highlighted-color;
   cursor: pointer;
-  text-align: center;
   padding: 0.2rem 0.5rem;
-  margin:4px;
   border-radius: 4px;
   font-size: 12px;
+  flex: 1;
+  margin:0 10px 0 0px;
+}
+
+.ember-power-select-cancel-btn{
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  color: $ember-power-select-disabled-option-color;
+  border-radius: 4px;
+  font-size: 12px;
+  flex: 1;
+  margin:0 0 0 10px;
 }

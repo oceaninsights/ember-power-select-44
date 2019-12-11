@@ -30,6 +30,7 @@
   @onInput={{@onInput}}
   @onKeydown={{this.handleKeydown}}
   @onOpen={{this.handleOpen}}
+  @onSubmit={{@onSubmit}}
   @options={{@options}}
   @optionsComponent={{@optionsComponent}}
   @placeholder={{@placeholder}}
@@ -55,7 +56,6 @@
   @triggerId={{@triggerId}}
   @verticalPosition={{@verticalPosition}}
   @tabindex={{this.computedTabIndex}}
-  @submitButton={{@submitButton}}
   ...attributes as |option select|>
   {{yield option select}}
 </PowerSelect>

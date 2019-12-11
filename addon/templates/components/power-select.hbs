@@ -104,10 +104,16 @@
     {{#let (component this.afterOptionsComponent) as |AfterOptions|}}
       <AfterOptions @select={{this.publicAPI}} @extra={{@extra}}/>
     {{/let}}
-    {{#if submitButton}}
-      <div
-      {{on "click" this.handleSubmit}}
-      class="ember-power-select-submit-btn">Submit</div>
+    {{#if onSubmit}}
+      <div class="ember-power-select-submit-container">
+        <div
+        {{on "click" handleSubmit}}
+        class="ember-power-select-submit-btn">Submit</div>
+
+        <div
+        {{on "click" handleCancel}}
+        class="ember-power-select-cancel-btn">cancel</div>
+      </div>
     {{/if}}
   </dropdown.Content>
 </BasicDropdown>
