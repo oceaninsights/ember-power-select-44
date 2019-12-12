@@ -190,6 +190,9 @@ export default @tagName('') @layout(templateLayout) class PowerSelect extends Co
 
   @action
   handleOpen(_, e) {
+    // to revert the selection by clicking "cancel"
+    this.oldSelected = this.selected
+
     if (this.onOpen && this.onOpen(this.publicAPI, e) === false) {
       return false;
     }
@@ -204,6 +207,9 @@ export default @tagName('') @layout(templateLayout) class PowerSelect extends Co
 
   @action
   handleClose(_, e) {
+    if(this.onSubmit && !e.target.className.includes(['ember-power-select-submit-btn'])){
+       this.set('selected', this.oldSelected);
+    }
     if (this.onClose && this.onClose(this.publicAPI, e) === false) {
       return false;
     }
