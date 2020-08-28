@@ -31,12 +31,18 @@
           {{yield opt select}}
         {{/if}}
         {{#unless @select.disabled }}
-          <span role="button"
-            aria-label="remove element"
-            class="ember-power-select-multiple-remove-btn"
-            data-selected-index={{idx}}>
-            &times;
-          </span>
+          {{#if (ember-power-select-is-in-array opt readOnlyOptions)}}
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="#333333" d="M18 10v-4c0-3.313-2.687-6-6-6s-6 2.687-6 6v4h-3v14h18v-14h-3zm-10 0v-4c0-2.206 1.794-4 4-4s4 1.794 4 4v4h-8z"/></svg>
+            </span>
+          {{else}}
+            <span role="button"
+              aria-label="remove element"
+              class="ember-power-select-multiple-remove-btn"
+              data-selected-index={{idx}}>
+              &times;
+            </span>
+          {{/if}}
         {{/unless}}
       </li>
     {{/each}}

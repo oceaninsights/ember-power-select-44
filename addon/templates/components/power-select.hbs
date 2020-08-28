@@ -48,6 +48,7 @@
         @selectedSummarized={{@selectedSummarized}}
         @customSummarizedTitle={{@customSummarizedTitle}}
         @selectedItemComponent={{@selectedItemComponent}}
+        @readOnlyOptions={{@readOnlyOptions}}
         as |opt term|>
         {{yield opt term}}
       </Trigger>
@@ -95,6 +96,7 @@
           @optionsComponent={{Options}}
           @highlightOnHover={{this.highlightOnHover}}
           @groupComponent={{this.groupComponent}}
+          @readOnlyOptions={{@readOnlyOptions}}
           id={{this.optionsId}}
           class="ember-power-select-options" as |option term|>
           {{yield option term}}
