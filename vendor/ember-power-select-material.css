@@ -174,6 +174,9 @@
   float: left;
   margin: 2px 0 2px 3px; }
 
+.select-summarized {
+  border: inherit !important; }
+
 .ember-power-select-multiple-remove-btn {
   cursor: pointer; }
   .ember-power-select-multiple-remove-btn:not(:hover) {
@@ -308,3 +311,27 @@
 
 .ember-power-select-dropdown[dir=rtl] .ember-power-select-group .ember-power-select-group-name {
   padding-right: 8px; }
+
+.ember-power-select-submit-container {
+  padding: 4px;
+  display: flex;
+  text-align: center; }
+
+.ember-power-select-submit-btn {
+  background: #28a745;
+  color: inherit;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 12px;
+  flex: 1;
+  margin: 0 10px 0 0px; }
+
+.ember-power-select-cancel-btn {
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  color: #999999;
+  border-radius: 4px;
+  font-size: 12px;
+  flex: 1;
+  margin: 0 0 0 10px; }

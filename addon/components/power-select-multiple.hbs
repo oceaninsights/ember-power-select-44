@@ -15,6 +15,7 @@
   @destination={{@destination}}
   @disabled={{@disabled}}
   @dropdownClass={{@dropdownClass}}
+  @dynamicOverflow={{@dynamicOverflow}}
   @extra={{@extra}}
   @groupComponent={{ensure-safe-component @groupComponent}}
   @horizontalPosition={{@horizontalPosition}}
@@ -31,7 +32,9 @@
   @onInput={{@onInput}}
   @onKeydown={{this.handleKeydown}}
   @onOpen={{this.handleOpen}}
+  @onSubmit={{@onSubmit}}
   @options={{@options}}
+  @readOnlyOptions={{@readOnlyOptions}}
   @optionsComponent={{ensure-safe-component @optionsComponent}}
   @placeholder={{@placeholder}}
   @placeholderComponent={{ensure-safe-component @placeholderComponent}}
@@ -47,6 +50,8 @@
   @searchPlaceholder={{@searchPlaceholder}}
   @selected={{@selected}}
   @selectedItemComponent={{ensure-safe-component @selectedItemComponent}}
+  @selectedSummarized={{@selectedSummarized}}
+  @customSummarizedTitle={{@customSummarizedTitle}}
   @eventType={{@eventType}}
   @title={{@title}}
   @triggerClass="ember-power-select-multiple-trigger {{@triggerClass}}"

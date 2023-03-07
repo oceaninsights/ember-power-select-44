@@ -27,7 +27,7 @@
         <li class="ember-power-select-option"
           id="{{@select.uniqueId}}-{{@groupIndex}}{{index}}"
           aria-selected="{{ember-power-select-is-selected opt @select.selected}}"
-          aria-disabled={{if opt.disabled "true"}}
+          aria-disabled={{if (or opt.disabled (ember-power-select-is-in-array opt readOnlyOptions)) "true"}}
           aria-current="{{eq opt @select.highlighted}}"
           data-option-index="{{@groupIndex}}{{index}}"
           role="option">

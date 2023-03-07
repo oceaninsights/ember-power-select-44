@@ -1,0 +1,121 @@
+<BasicDropdown
+  @horizontalPosition={{@horizontalPosition}}
+  @calculatePosition={{@calculatePosition}}
+  @destination={{@destination}}
+  @initiallyOpened={{@initiallyOpened}}
+  @matchTriggerWidth={{this.matchTriggerWidth}}
+  @preventScroll={{this.preventScroll}}
+  @onClose={{this.handleClose}}
+  @onOpen={{this.handleOpen}}
+  @registerAPI={{this._registerAPI}}
+  @renderInPlace={{@renderInPlace}}
+  @verticalPosition={{@verticalPosition}}
+  @disabled={{@disabled}}
+  ...attributes as |dropdown|>
+  <dropdown.Trigger
+    @eventType={{or @eventType "mousedown"}}
+    {{on "keydown" this.handleTriggerKeydown}}
+    {{on "focus" this.handleTriggerFocus}}
+    {{on "blur" this.handleTriggerBlur}}
+    class={{this.concatenatedTriggerClasses}}
+    id={{@triggerId}}
+    role={{this.triggerRole}}
+    aria-describedby={{@ariaDescribedBy}}
+    aria-invalid={{@ariaInvalid}}
+    aria-label={{@ariaLabel}}
+    aria-labelledby={{@ariaLabelledBy}}
+    aria-required={{@required}}
+    title={{@title}}
+    tabindex={{and (not @disabled) (or @tabindex "0")}}>
+    {{#let (component this.triggerComponent) as |Trigger|}}
+      <Trigger
+        @htmlTag={{this._triggerTagName}}
+        @allowClear={{@allowClear}}
+        @buildSelection={{@buildSelection}}
+        @dynamicOverflow={{@dynamicOverflow}}
+        @extra={{@extra}}
+        @listboxId={{this.optionsId}}
+        @loadingMessage={{this.loadingMessage}}
+        @onFocus={{this.handleFocus}}
+        @onBlur={{this.handleBlur}}
+        @onInput={{this.handleInput}}
+        @placeholder={{@placeholder}}
+        @placeholderComponent={{this.placeholderComponent}}
+        @onKeydown={{this.handleKeydown}}
+        @searchEnabled={{@searchEnabled}}
+        @searchField={{@searchField}}
+        @select={{this.publicAPI}}
+        @selectedSummarized={{@selectedSummarized}}
+        @customSummarizedTitle={{@customSummarizedTitle}}
+        @selectedItemComponent={{@selectedItemComponent}}
+        @readOnlyOptions={{@readOnlyOptions}}
+        as |opt term|>
+        {{yield opt term}}
+      </Trigger>
+    {{/let}}
+  </dropdown.Trigger>
+  <dropdown.Content @htmlTag={{this._contentTagName}} class={{this.concatenatedDropdownClasses}}>
+    {{#let (component this.beforeOptionsComponent) as |BeforeOptions|}}
+      <BeforeOptions
+        @animationEnabled={{@animationEnabled}}
+        @select={{this.publicAPI}}
+        @searchEnabled={{@searchEnabled}}
+        @searchPlaceholder={{@searchPlaceholder}}
+        @listboxId={{this.optionsId}}
+        @onInput={{this.handleInput}}
+        @onKeydown={{this.handleKeydown}}
+        @onFocus={{this.handleFocus}}
+        @onBlur={{this.handleBlur}}
+        @extra={{@extra}}
+        @placeholder={{placeholder}}
+        @placeholderComponent={{this.placeholderComponent}}
+        @selectedItemComponent={{@selectedItemComponent}}/>
+    {{/let}}
+    {{#if this.mustShowSearchMessage}}
+      {{#let (component this.searchMessageComponent) as |SearchMessage|}}
+        <SearchMessage @searchMessage={{this.searchMessage}} @select={{this.publicAPI}}/>
+      {{/let}}
+    {{else if mustShowNoMessages}}
+      {{#if (hasBlock "inverse")}}
+        {{yield to="inverse"}}
+      {{else if noMatchesMessage}}
+        <ul class="ember-power-select-options" role="listbox">
+          <li class="ember-power-select-option ember-power-select-option--no-matches-message" role="option">
+            {{this.noMatchesMessage}}
+          </li>
+        </ul>
+      {{/if}}
+    {{else}}
+      {{#let (component this.optionsComponent) as |Options|}}
+        <Options
+          @loadingMessage={{this.loadingMessage}}
+          @groupIndex=""
+          @extra={{@extra}}
+          @select={{this.publicAPI}}
+          @options={{this.publicAPI.results}}
+          @optionsComponent={{Options}}
+          @highlightOnHover={{this.highlightOnHover}}
+          @groupComponent={{this.groupComponent}}
+          @readOnlyOptions={{@readOnlyOptions}}
+          id={{this.optionsId}}
+          class="ember-power-select-options" as |option term|>
+          {{yield option term}}
+        </Options>
+      {{/let}}
+    {{/if}}
+    {{#let (component this.afterOptionsComponent) as |AfterOptions|}}
+      <AfterOptions @select={{this.publicAPI}} @extra={{@extra}}/>
+    {{/let}}
+    {{#if onSubmit}}
+      <div class="ember-power-select-submit-container">
+        <div
+        {{on "click" handleSubmit}}
+        class="ember-power-select-submit-btn">Submit</div>
+
+        <div
+        {{on "click" handleCancel}}
+        class="ember-power-select-cancel-btn">Cancel</div>
+      </div>
+    {{/if}}
+  </dropdown.Content>
+</BasicDropdown>
